@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Advanced Password Strength Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+    
+    </style>
+</head>
+
+<body>
+
+<!-- =================== باکس حمله‌ها =================== -->
+<div id="attackInfoBox">
+    <h3>انواع حمله‌ها</h3>
+
+    <div class="columns">
+
+        <div>
+            <b>Dictionary Attack — حملهٔ لغت‌نامه</b>
+            لیست‌ رمزهای رایج مثل password، admin، 123456 را امتحان می‌کند.
+
+            <br><br><b>Bruteforce Basic — حملهٔ حدسی ساده</b>
+            تمام ترکیب‌های ممکن از حروف کوچک تست می‌شود.
+
+            <br><br><b>Bruteforce Digits — حملهٔ عددی</b>
+            فقط روی اعداد کار می‌کند (00000 تا 99999).
+        </div>
+
+        <div>
+            <b>Pattern Attack — حملهٔ الگو</b>
+            الگوهایی مثل 1234، qwerty، abcde.
+
+            <br><br><b>Hybrid Attack — حملهٔ ترکیبی</b>
+            حرف + عدد مثل a1234 یا pass2024.
+
+            <br><br><b>AI-Smart Attack — حملهٔ هوشمند</b>
+            حدس هوشمند بر اساس اسم، ایمیل، رفتار دیجیتال.
+        </div>
+
+    </div>
+</div>
+
+<!-- =================== لایه‌های اصلی =================== -->
+<div class="container">
+
+    <h1>تحلیل‌گر پیشرفتهٔ قدرت رمز (Advanced Password Strength Analyzer)</h1>
+
+    <div class="input-group">
+        <h2>رمز عبور را وارد کنید:</h2>
+        <input type="text" id="passwordInput" placeholder="رمز موردنظر را تایپ کنید...">
+    </div>
+
+    <!-- نوار امتیاز -->
+    <div class="progress">
+        <div id="scoreBar"></div>
+    </div>
+
+    <h2>معیارهای امنیتی</h2>
+    <table>
+        <tr><th>معیار</th><th>امتیاز</th><th>پیشرفت</th></tr>
+
+        <tr>
+            <td class="tooltip">طول رمز
+                <span class="tooltip-text">هرچه طول بیشتر باشد، کرک سخت‌تر است. زیر ۸ ضعیف است.</span>
+            </td>
+            <td id="lenScore">0</td>
+            <td><div class="metric-bar"><div id="m_length" class="metric-fill"></div></div></td>
+        </tr>
+
+        <tr>
+            <td class="tooltip">حروف بزرگ و کوچک
+                <span class="tooltip-text">ترکیب چندنوع کاراکتر پیچیدگی را بالا می‌برد.</span>
+            </td>
+            <td id="upperScore">0</td>
+            <td><div class="metric-bar"><div id="m_variety" class="metric-fill"></div></div></td>
+        </tr>
+
+        <tr>
+            <td class="tooltip">الگوهای رایج
+                <span class="tooltip-text">الگوهایی مثل 123 یا abc سریع شناخته می‌شوند.</span>
+            </td>
+            <td id="patternScore">0</td>
+            <td><div class="metric-bar"><div id="m_patterns" class="metric-fill"></div></div></td>
+        </tr>
+
+        <tr>
+            <td class="tooltip">تکرار یا توالی
+                <span class="tooltip-text">aaa یا 111 رمز را کاملاً ضعیف می‌کند.</span>
+            </td>
+            <td id="sequenceScore">0</td>
+            <td><div class="metric-bar"><div id="m_sequences" class="metric-fill"></div></div></td>
+        </tr>
+
+        <tr>
+            <td class="tooltip">نمادها
+                <span class="tooltip-text">نمادهایی مثل ! @ # مقاومت را چند برابر می‌کنند.</span>
+            </td>
+            <td id="symbolScore">0</td>
+            <td><div class="metric-bar"><div id="m_symbolpower" class="metric-fill"></div></div></td>
+        </tr>
+    </table>
+
+    <h2>قدرت نهایی رمز</h2>
+    <p id="strengthLevel">—</p>
+
+    <p class="tooltip" id="attackModeHover">
+        نوع حمله: <span id="attackMode">—</span>
+        <span class="tooltip-text">موس را نگه دارید تا جزئیات کامل را ببینید.</span>
+    </p>
+
+    <h2>سرعت کرک برای انواع سیستم‌ها</h2>
+    <table>
+        <tr><th>نوع مهاجم</th><th>قدرت</th><th>زمان لازم</th><th>نوار سخت‌افزار</th></tr>
+
+        <tr>
+            <td class="tooltip">🔵 هکر معمولی
+                <span class="tooltip-text">سیستم‌های خانگی یا لپ‌تاپ.</span>
+            </td>
+            <td>100M</td>
+            <td id="t1">—</td>
+            <td><div class="hardware-bar"><div id="h1" class="hardware-fill"></div></div></td>
+        </tr>
+
+        <tr>
+            <td class="tooltip">🔴 تیم BlackHat
+                <span class="tooltip-text">کارت گرافیک‌های قدرتمند چندگانه.</span>
+            </td>
+            <td>5B</td>
+            <td id="t2">—</td>
+            <td><div class="hardware-bar"><div id="h2" class="hardware-fill"></div></div></td>
+        </tr>
+
+        <tr>
+            <td class="tooltip">🟣 دولت‌ها
+                <span class="tooltip-text">آزمایشگاه‌های امنیتی بزرگ.</span>
+            </td>
+            <td>100B</td>
+            <td id="t3">—</td>
+            <td><div class="hardware-bar"><div id="h3" class="hardware-fill"></div></div></td>
+        </tr>
+
+        <tr>
+            <td class="tooltip">🟡 سطح NSA
+                <span class="tooltip-text">ابرکامپیوترهای بسیار عظیم.</span>
+            </td>
+            <td>1T</td>
+            <td id="t4">—</td>
+            <td><div class="hardware-bar"><div id="h4" class="hardware-fill"></div></div></td>
+        </tr>
+    </table>
+
+</div>
+
+<!-- نمایش و مخفی‌سازی باکس حمله‌ها -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
