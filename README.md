@@ -1,5 +1,7 @@
 # Advanced Password Strength Analyzer
 
+![📸 Preview Screenshot](https://github.com/mahdizebardastbarzin/Advanced_Password_Strength_Analyzer/blob/main/AdvancedPasswordStrengthAnalyzer.jpg)
+
 ## 🇺🇸 English Description  
 A cutting-edge tool for analyzing password strength with real-time scoring, security metrics, and attack simulations.
 
